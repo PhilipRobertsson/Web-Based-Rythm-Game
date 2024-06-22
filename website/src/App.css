@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  position: fixed;
 }
 
 .App-logo {
@@ -47,6 +48,7 @@
 .Note-line{
   height: 15px;
   width: 80vw;
+  position: relative;
   background-color: rgb(210, 46, 46);
   display: flex;
   align-items: center;
@@ -76,7 +78,8 @@
 }
 
 .Menus-container{
-  position: absolute;
+  position: fixed;
+  top:0;
   display: flex;
   width: 100vw;
 }
@@ -88,10 +91,11 @@
   align-self: flex-start;
   font-size: calc(2px + 2vmin);
   color: rgb(22, 22, 22);
-  width: 30vw;
-  min-height: 90vh;
-  left:0vw;
+  width: 20vw;
   background-color: aliceblue;
+  height: 100vh;
+  filter: drop-shadow(0 0 0.5rem rgb(22, 22, 22));
+  border-radius: 0 5em 5em 0;
 }
 
 #Instruction-window{
@@ -101,8 +105,9 @@
   margin-left: auto;
   font-size: calc(2px + 2vmin);
   color: rgb(22, 22, 22);
-  width: 50vw;
-  min-height: 90vh;
-  right:100vw;
+  width: 20vw;
   background-color: aliceblue;
+  height: 100vh;
+  filter: drop-shadow(0 0 0.5rem rgb(22, 22, 22));
+  border-radius: 5em 0 0 5em;
 }

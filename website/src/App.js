@@ -63,24 +63,8 @@ function App() {
         <button className="Menu-button">MENU</button>
         <h3>WEB BASED RYTHM GAME</h3>
         <button className="Info-button">INFO</button>
-      </header>
+      </header> 
 
-      <div className="Menus-container">
-        <div id="Menu-window">
-            <h3>Menu</h3>
-        </div>
-
-        <div id="Instruction-window">
-            <h3>Instructions</h3>
-            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-        </div>
-      </div>
-        
       <div className="App-content">
 
         <div className="Score-Window">
@@ -96,7 +80,21 @@ function App() {
             </div>*/}
 
         </div>
+      </div>
+      <div className="Menus-container">
+        <div id="Menu-window">
+            <h3>Menu</h3>
+        </div>
 
+        <div id="Instruction-window">
+            <h3>Instructions</h3>
+            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+        </div>
       </div>
     </div>
   );
