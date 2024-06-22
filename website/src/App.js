@@ -9,6 +9,41 @@ function App() {
   const [menuOut, setMenuOut] = useState(false)
   const [infoOut, setInfoOut] = useState(false)
 
+  // Slide Out Menus
+  function slideOutMenu(option){
+    if(document.getElementById("Menu-window")){
+      if(option == "menu"){
+        if(menuOut == false){
+          setMenuOut(true);
+          console.log("Menu Out");
+          document.getElementById("Menu-window").style.display="flex";
+          document.getElementById("Menu-window").style.animation = "slideInLeft 0.2s cubic-bezier(0,1,1,1)";
+        }else{
+          setMenuOut(false);
+          console.log("Menu In");
+          document.getElementById("Menu-window").style.animation = "slideOutLeft 0.2s cubic-bezier(0,1,1,1)";
+          setTimeout(function() {
+            document.getElementById("Menu-window").style.display="none";
+          }, 190);
+        }
+      }
+      if(option == "info"){
+        if(infoOut == false){
+          setInfoOut(true);
+          console.log("Info Out")
+          document.getElementById("Instruction-window").style.display="flex";
+          document.getElementById("Instruction-window").style.animation = "slideInRight 0.2s cubic-bezier(0,1,1,1)";
+        }else{
+          setInfoOut(false);
+          console.log("Info In")
+          document.getElementById("Instruction-window").style.animation = "slideOutRight 0.2s cubic-bezier(0,1,1,1.5)";
+          setTimeout(function() {
+            document.getElementById("Instruction-window").style.display="none";
+          }, 190);
+        }
+      }
+    }
+  }
 
   useEffect(() => {
     // Keyboard events
@@ -24,31 +59,6 @@ function App() {
         slideOutMenu("info");
       }
     }
-    // Slide Out Menus
-    function slideOutMenu(option){
-      if(option == "menu"){
-        if(menuOut == false){
-          setMenuOut(true);
-          console.log("Menu Out")
-          document.getElementById("Menu-window").style.display="flex";
-        }else{
-          setMenuOut(false);
-          console.log("Menu In")
-          document.getElementById("Menu-window").style.display="none";
-        }
-      }
-      if(option == "info"){
-        if(infoOut == false){
-          setInfoOut(true);
-          console.log("Info Out")
-          document.getElementById("Instruction-window").style.display="flex";
-        }else{
-          setInfoOut(false);
-          console.log("Info In")
-          document.getElementById("Instruction-window").style.display="none";
-        }
-      }
-    }
 
     document.addEventListener('keydown', handleKeyDown);
     return function cleanup() {
@@ -60,9 +70,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <button className="Menu-button">MENU</button>
+        <img className="Menu-button" src="hamburger-menu.svg" onClick={() => slideOutMenu("menu")}></img>
         <h3>WEB BASED RYTHM GAME</h3>
-        <button className="Info-button">INFO</button>
+        <img className="Info-button" src="info.svg" onClick={() => slideOutMenu("info")}></img>
       </header> 
 
       <div className="App-content">
@@ -83,17 +93,19 @@ function App() {
       </div>
       <div className="Menus-container">
         <div id="Menu-window">
-            <h3>Menu</h3>
+            <img className="Close-button" src="close.svg" onClick={()=>slideOutMenu("menu")}></img>
+            <h3 style={{paddingLeft:"2em"}}>Menu</h3>
+            <div style={{width:"100vw", height:"100vw"}}>
+
+            </div>
         </div>
 
         <div id="Instruction-window">
-            <h3>Instructions</h3>
-            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+            <h3 style={{paddingRight:"2em"}}>Info</h3>
+            <img className="Close-button" src="close.svg" onClick={()=>slideOutMenu("info")}></img>
+            <div style={{width:"100vw", height:"100vw"}}>
+
+            </div>
         </div>
       </div>
     </div>

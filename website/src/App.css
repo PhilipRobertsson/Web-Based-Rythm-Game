@@ -27,6 +27,21 @@
   filter: drop-shadow(0 0 0.5rem rgb(22, 22, 22));
 }
 
+.Menu-button{
+  max-height: 8vh;
+  max-width: 8vw;
+}
+
+.Info-button{
+  max-height: 6vh;
+  max-width:6vw;
+}
+
+.Close-button{
+  height: 5vh;
+  width:5vw;
+}
+
 .App-content {
   background-color: rgb(240, 240, 223);
   min-height: 90vh;
@@ -87,8 +102,10 @@
 #Menu-window{
   display: none;
   justify-content: flex-start;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-self: flex-start;
+  align-items: center;
   font-size: calc(2px + 2vmin);
   color: rgb(22, 22, 22);
   width: 20vw;
@@ -96,12 +113,15 @@
   height: 100vh;
   filter: drop-shadow(0 0 0.5rem rgb(22, 22, 22));
   border-radius: 0 5em 5em 0;
+  padding: 2em 1em 0 1em;
 }
 
 #Instruction-window{
   display: none;
-  justify-content: flex-start;
-  flex-direction: column;
+  justify-content: flex-end;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
   margin-left: auto;
   font-size: calc(2px + 2vmin);
   color: rgb(22, 22, 22);
@@ -110,4 +130,11 @@
   height: 100vh;
   filter: drop-shadow(0 0 0.5rem rgb(22, 22, 22));
   border-radius: 5em 0 0 5em;
+  padding: 2em 1em 0 1em;
 }
+
+@keyframes slideInLeft {0%{transform: translate(-20vw);} 100%{transform: translate(0);}}
+@keyframes slideOutLeft {0%{transform: translate(0);} 100%{transform: translate(-20vw);}}
+
+@keyframes slideInRight {0%{transform: translate(20vw);} 100%{transform: translate(0);}}
+@keyframes slideOutRight {0%{transform: translate(0);} 100%{transform: translate(20vw);}}
