@@ -79,13 +79,13 @@
   position: absolute;
   display: flex;
   width: 100vw;
-  justify-content: space-between;
 }
 
 #Menu-window{
   display: none;
   justify-content: flex-start;
   flex-direction: column;
+  align-self: flex-start;
   font-size: calc(2px + 2vmin);
   color: rgb(22, 22, 22);
   width: 30vw;
@@ -98,6 +98,7 @@
   display: none;
   justify-content: flex-start;
   flex-direction: column;
+  margin-left: auto;
   font-size: calc(2px + 2vmin);
   color: rgb(22, 22, 22);
   width: 50vw;
