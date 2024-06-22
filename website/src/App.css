@@ -27,12 +27,12 @@
   filter: drop-shadow(0 0 0.5rem rgb(22, 22, 22));
 }
 
-.Menu-button{
+#Menu-button{
   max-height: 8vh;
   max-width: 8vw;
 }
 
-.Info-button{
+#Info-button{
   max-height: 6vh;
   max-width:6vw;
 }

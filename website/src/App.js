@@ -10,18 +10,18 @@ function App() {
   const [infoOut, setInfoOut] = useState(false)
 
   // Slide Out Menus
-  function slideOutMenu(option){
+  const slideOutMenu = (option) => {
     if(document.getElementById("Menu-window")){
       if(option == "menu"){
         if(menuOut == false){
           setMenuOut(true);
           console.log("Menu Out");
           document.getElementById("Menu-window").style.display="flex";
-          document.getElementById("Menu-window").style.animation = "slideInLeft 0.2s cubic-bezier(0,1,1,1)";
+          document.getElementById("Menu-window").style.animation = "slideInLeft 0.2s linear";
         }else{
           setMenuOut(false);
           console.log("Menu In");
-          document.getElementById("Menu-window").style.animation = "slideOutLeft 0.2s cubic-bezier(0,1,1,1)";
+          document.getElementById("Menu-window").style.animation = "slideOutLeft 0.2s linear";
           setTimeout(function() {
             document.getElementById("Menu-window").style.display="none";
           }, 190);
@@ -32,11 +32,11 @@ function App() {
           setInfoOut(true);
           console.log("Info Out")
           document.getElementById("Instruction-window").style.display="flex";
-          document.getElementById("Instruction-window").style.animation = "slideInRight 0.2s cubic-bezier(0,1,1,1)";
+          document.getElementById("Instruction-window").style.animation = "slideInRight 0.2s linear";
         }else{
           setInfoOut(false);
           console.log("Info In")
-          document.getElementById("Instruction-window").style.animation = "slideOutRight 0.2s cubic-bezier(0,1,1,1.5)";
+          document.getElementById("Instruction-window").style.animation = "slideOutRight 0.2s linear";
           setTimeout(function() {
             document.getElementById("Instruction-window").style.display="none";
           }, 190);
@@ -44,6 +44,8 @@ function App() {
       }
     }
   }
+
+  
 
   useEffect(() => {
     // Keyboard events
@@ -59,7 +61,6 @@ function App() {
         slideOutMenu("info");
       }
     }
-
     document.addEventListener('keydown', handleKeyDown);
     return function cleanup() {
       document.removeEventListener('keydown', handleKeyDown);
@@ -70,9 +71,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img className="Menu-button" src="hamburger-menu.svg" onClick={() => slideOutMenu("menu")}></img>
+        {/*TODO: Fix bug where both menus cant be opened simultaniously from the navbar icons*/}
+        <img id="Menu-button" src="hamburger-menu.svg" onClick={()=>slideOutMenu("menu")}></img>
         <h3>WEB BASED RYTHM GAME</h3>
-        <img className="Info-button" src="info.svg" onClick={() => slideOutMenu("info")}></img>
+        <img id="Info-button" src="info.svg" onClick={()=>slideOutMenu("info")}></img>
       </header> 
 
       <div className="App-content">
