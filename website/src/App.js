@@ -98,7 +98,16 @@ function App() {
             <img className="Close-button" src="close.svg" onClick={()=>slideOutMenu("menu")}></img>
             <h3 style={{paddingLeft:"2em"}}>Menu</h3>
             <div style={{width:"100vw", height:"100vw"}}>
-
+                <div className='Menu-item'>
+                  <b>Select Track</b>
+                </div>
+                <div className='Menu-item'>
+                  <b>Options</b>
+                </div>
+                <div className='Menu-item'>
+                  <b>Credits</b>
+                  <p>Created by Philip Robertsson</p>
+                </div>
             </div>
         </div>
 
@@ -106,7 +115,18 @@ function App() {
             <h3 style={{paddingRight:"2em"}}>Info</h3>
             <img className="Close-button" src="close.svg" onClick={()=>slideOutMenu("info")}></img>
             <div style={{width:"100vw", height:"100vw"}}>
-
+              <div className='Menu-item'>
+                    <b>Chose track</b>
+                    <p>In the left hand side menu you can chose a track you want to play under the tab <i>Select Track</i>.</p>
+              </div>
+              <div className='Menu-item'>
+                    <b>Controls</b>
+                    <p>Simply hit the<i>Spacebar</i> once a note reaches the middle of the yellow <i>judgment zone</i>, if you time it right you score.</p>
+              </div>
+              <div className='Menu-item'>
+                    <b>Shortcuts</b>
+                    <p>You can access the left hand side menu by pressing <i>Esc</i> while this menu is accessed by pressing <i>I</i>. These keys also close the respective menu.</p>
+              </div>
             </div>
         </div>
       </div>

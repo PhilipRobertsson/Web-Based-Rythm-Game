@@ -32,6 +32,12 @@
   max-width: 8vw;
 }
 
+.Menu-item{
+  border-style: solid none none none;
+  border-width: 1px;
+  padding: 10px 0 10px 0;
+}
+
 #Info-button{
   max-height: 6vh;
   max-width:6vw;
