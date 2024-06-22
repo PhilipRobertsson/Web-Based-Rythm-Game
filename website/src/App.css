@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  position: fixed;
 }
 
 .App-logo {
@@ -56,7 +55,7 @@
 }
 
 .Judgement-zone{
-  position: absolute;
+  position: fixed;
   display: flex;
   height: 15px;
   width: 20vw;
@@ -73,13 +72,36 @@
   background-color: rgb(109, 109, 109);
   border-style: none none none solid;
   border-color: rgb(22, 22, 22);
-  border-radius: 20px 0 0 20px;
+  border-radius: 10px 0 0 10px;
 }
 
-.Instruction-window{
+.Menus-container{
+  position: absolute;
   display: flex;
+  width: 100vw;
+  justify-content: space-between;
+}
+
+#Menu-window{
+  display: none;
+  justify-content: flex-start;
   flex-direction: column;
   font-size: calc(2px + 2vmin);
   color: rgb(22, 22, 22);
-  max-width: 50vw;
+  width: 30vw;
+  min-height: 90vh;
+  left:0vw;
+  background-color: aliceblue;
+}
+
+#Instruction-window{
+  display: none;
+  justify-content: flex-start;
+  flex-direction: column;
+  font-size: calc(2px + 2vmin);
+  color: rgb(22, 22, 22);
+  width: 50vw;
+  min-height: 90vh;
+  right:100vw;
+  background-color: aliceblue;
 }
