@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  position: fixed;
 }
 
 .App-logo {
@@ -14,8 +15,21 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: rgb(233, 233, 217);
+  max-height: 10vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  font-size: calc(10px + 2vmin);
+  color: rgb(22, 22, 22);
+  filter: drop-shadow(0 0 0.5rem rgb(22, 22, 22));
+}
+
+.App-content {
+  background-color: rgb(240, 240, 223);
+  min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,15 +38,48 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.Score-window{
+  display: flex;
+  max-width: 50vw;
+  max-height: 10vw;
+  color: rgb(22, 22, 22);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Note-line{
+  height: 15px;
+  width: 80vw;
+  background-color: rgb(210, 46, 46);
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  filter: drop-shadow(0 0 0.1rem rgb(22, 22, 22));
+}
+
+.Judgement-zone{
+  position: absolute;
+  display: flex;
+  height: 15px;
+  width: 20vw;
+  background-color: rgb(205, 217, 35);
+  border-style: none none none solid;
+  border-color: rgb(22, 22, 22);
+}
+
+.Missed-box{
+  position: fixed;
+  display: flex;
+  height: 40px;
+  width: 40px;
+  background-color: rgb(109, 109, 109);
+  border-style: none none none solid;
+  border-color: rgb(22, 22, 22);
+  border-radius: 20px 0 0 20px;
+}
+
+.Instruction-window{
+  display: flex;
+  flex-direction: column;
+  font-size: calc(2px + 2vmin);
+  color: rgb(22, 22, 22);
+  max-width: 50vw;
 }
