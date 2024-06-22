@@ -1,13 +1,27 @@
 import logo from './logo.svg';
+import './index.css';
 import './App.css';
 import { useEffect } from "react";
 import { useState } from "react";
 import React from 'react';
+import YouTube from 'react-youtube';
 
 function App() {
 
   const [menuOut, setMenuOut] = useState(false)
   const [infoOut, setInfoOut] = useState(false)
+  const [videoUrl, setVideoUrl] = useState("");
+  const [videoCode, setVideoCode] = useState("");
+  
+  const opts = {
+    height: '578',
+    width: '1028',
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+    },
+  };
+
 
   // Slide Out Menus
   const slideOutMenu = (option) => {
@@ -45,7 +59,20 @@ function App() {
     }
   }
 
-  
+  //Load video
+  const loadVideo = () =>{
+    if(document.getElementById("YTurl")){
+
+      setVideoUrl(document.getElementById("YTurl").value);
+      console.log(videoUrl);
+
+      if (videoUrl) {
+        if(videoUrl.includes("v=") && videoUrl.includes("&")){
+          setVideoCode(videoUrl.split("v=")[1].split("&")[0]);
+        }
+      }
+    }
+  }
 
   useEffect(() => {
     // Keyboard events
@@ -65,7 +92,7 @@ function App() {
     return function cleanup() {
       document.removeEventListener('keydown', handleKeyDown);
     }
-  }, [menuOut, infoOut]);
+  }, [menuOut, infoOut, videoCode]);
 
   // App content
   return (
@@ -73,11 +100,13 @@ function App() {
       <header className="App-header">
         {/*TODO: Fix bug where both menus cant be opened simultaniously from the navbar icons*/}
         <img id="Menu-button" src="hamburger-menu.svg" onClick={()=>slideOutMenu("menu")}></img>
-        <h3>WEB BASED RYTHM GAME</h3>
+        <h2>WEB BASED RYTHM GAME</h2>
         <img id="Info-button" src="info.svg" onClick={()=>slideOutMenu("info")}></img>
       </header> 
 
       <div className="App-content">
+
+      <YouTube className='YT-iFrame'  opts={opts} videoId={videoCode}></YouTube>
 
         <div className="Score-Window">
           <p>score</p>
@@ -99,7 +128,10 @@ function App() {
             <h3 style={{paddingLeft:"2em"}}>Menu</h3>
             <div style={{width:"100vw", height:"100vw"}}>
                 <div className='Menu-item'>
-                  <b>Select Track</b>
+                  <b>Select Track</b><br></br>
+                  <label for="YTurl">YouTube URL:</label>
+                  <input type="text" id="YTurl" name="YTurlField" autoComplete="off"/>
+                  <input type="submit" id="YTsub" value="Select" onClick={()=>loadVideo()}/>
                 </div>
                 <div className='Menu-item'>
                   <b>Options</b>
@@ -107,6 +139,7 @@ function App() {
                 <div className='Menu-item'>
                   <b>Credits</b>
                   <p>Created by Philip Robertsson</p>
+                  <p>Might break the Youtube TOS</p>
                 </div>
             </div>
         </div>
@@ -121,11 +154,11 @@ function App() {
               </div>
               <div className='Menu-item'>
                     <b>Controls</b>
-                    <p>Simply hit the<i>Spacebar</i> once a note reaches the middle of the yellow <i>judgment zone</i>, if you time it right you score.</p>
+                    <p>Simply hit the <i>Spacebar</i> once a note reaches the middle of the yellow <i>judgment zone</i>, if you time it right you score.</p>
               </div>
               <div className='Menu-item'>
                     <b>Shortcuts</b>
-                    <p>You can access the left hand side menu by pressing <i>Esc</i> while this menu is accessed by pressing <i>I</i>. These keys also close the respective menu.</p>
+                    <p>You can access the left hand side menu by pressing <i>Esc</i>, while this menu is accessed by pressing <i>I</i>. These keys also close the respective menus.</p>
               </div>
             </div>
         </div>

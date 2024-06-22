@@ -22,6 +22,9 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 300;
+  font-style: normal;
   font-size: calc(10px + 2vmin);
   color: rgb(22, 22, 22);
   filter: drop-shadow(0 0 0.5rem rgb(22, 22, 22));
@@ -34,8 +37,25 @@
 
 .Menu-item{
   border-style: solid none none none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border-width: 1px;
   padding: 10px 0 10px 0;
+}
+
+#YTurl{
+  height: 35px;
+  font-size: large;
+}
+
+#YTsub{
+  height:40px;
+  width: 120px;
+  display: flex;
+  margin: auto;
+  font-family: "Silkscreen", sans-serif;
+  font-size: medium;
 }
 
 #Info-button{
@@ -56,7 +76,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(22, 22, 22);
 }
 
 .Score-window{
@@ -103,6 +123,7 @@
   top:0;
   display: flex;
   width: 100vw;
+  font-family: "Silkscreen", sans-serif;
 }
 
 #Menu-window{
