@@ -14,6 +14,8 @@ function App() {
   const [videoUrl, setVideoUrl] = useState("")
   const [videoCode, setVideoCode] = useState("")
   const [spaceDown, setSpaceDown] = useState(false)
+  const [scored, setScored] = useState(false)
+  const [points, setPoints] = useState(0)
 
   // Rezise a canvas element to desired size, uses the ctx.canvas element from the draw function
   const resizeCanvasToDisplaySize = (canvas, width, height) =>{
@@ -30,6 +32,10 @@ function App() {
   const drawNoteLine = (ctx, frameCount) => {
     if(spaceDown){
       resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20+10)
+      if(frameCount >= ctx.canvas.width*0.8 && frameCount <= ctx.canvas.width && !scored){
+        setScored(true)
+        setPoints(points+1)
+      }
     }else{
       resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20)
     }
@@ -54,10 +60,19 @@ function App() {
     ctx.fill()
 
     // Moving note, might add loop here to add multipe notes or some function
+    if(!scored){
     ctx.fillStyle = '#336633'
     ctx.beginPath()
-    ctx.arc(frameCount, ctx.canvas.height/2, ctx.canvas.height/2, 0, (ctx.canvas.height*Math.PI)/2);
+    if(spaceDown){
+      ctx.arc(frameCount, ctx.canvas.height/2, (ctx.canvas.height/2)-5, 0, (ctx.canvas.height*Math.PI)/2);
+    }else{
+      ctx.arc(frameCount, ctx.canvas.height/2, ctx.canvas.height/2, 0, (ctx.canvas.height*Math.PI)/2);
+    }
     ctx.fill()
+    }
+    if(frameCount == ctx.canvas.width){
+      setScored(false);
+    }
   }
 
   // Slide Out Menus
@@ -153,6 +168,7 @@ function App() {
         </div>
         */}
         <Canvas id="Note-line" draw={drawNoteLine} options={['2d',Number(1)]}/>
+        <p>Score: {points}</p>
         
       </div>
       <div className="Menus-container">
