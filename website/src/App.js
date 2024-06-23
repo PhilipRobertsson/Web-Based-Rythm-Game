@@ -11,8 +11,9 @@ function App() {
 
   const [menuOut, setMenuOut] = useState(false)
   const [infoOut, setInfoOut] = useState(false)
-  const [videoUrl, setVideoUrl] = useState("");
-  const [videoCode, setVideoCode] = useState("");
+  const [videoUrl, setVideoUrl] = useState("")
+  const [videoCode, setVideoCode] = useState("")
+  const [spaceDown, setSpaceDown] = useState(false)
 
   // Rezise a canvas element to desired size, uses the ctx.canvas element from the draw function
   const resizeCanvasToDisplaySize = (canvas, width, height) =>{
@@ -27,7 +28,12 @@ function App() {
 
   // Code to draw the note line as a canvas
   const drawNoteLine = (ctx, frameCount) => {
-    resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20)
+    if(spaceDown){
+      resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20+10)
+      // TODO: Function to check where a note is
+    }else{
+      resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20)
+    }
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
     //Red part
@@ -47,6 +53,8 @@ function App() {
     ctx.beginPath()
     ctx.rect((ctx.canvas.width*0.8)-1, 0,1, ctx.canvas.height)
     ctx.fill()
+
+    // Moving note
   }
 
   // Slide Out Menus
@@ -104,9 +112,11 @@ function App() {
     // Keyboard events
     function handleKeyDown(e) {
       if(e.code == "Space"){
-        console.log(e.code);
-        console.log("Judge player in judgment zone");
-      }
+        setSpaceDown(true);
+        setTimeout(function() {
+          setSpaceDown(false);
+        }, 50);
+      } 
       if(e.code == "Escape"){
         slideOutMenu("menu");
       }
@@ -133,13 +143,12 @@ function App() {
 
         {/*
         <YouTube className='YT-iFrame'  opts={opts} videoId={videoCode}></YouTube>
-        */}
 
         <div className="Score-Window">
           <p>score</p>
         </div>
-
-        <Canvas draw={drawNoteLine} options={'2d'}/>
+        */}
+        <Canvas id="Note-line" draw={drawNoteLine} options={'2d'}/>
         
       </div>
       <div className="Menus-container">

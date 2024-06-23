@@ -86,6 +86,10 @@
   color: rgb(22, 22, 22);
 }
 
+#Note-line{
+  filter: drop-shadow(0 0 0.1rem rgb(22, 22, 22));
+}
+
 .Menus-container{
   position: fixed;
   top:0;
