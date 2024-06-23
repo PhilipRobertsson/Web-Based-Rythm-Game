@@ -30,7 +30,6 @@ function App() {
   const drawNoteLine = (ctx, frameCount) => {
     if(spaceDown){
       resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20+10)
-      // TODO: Function to check where a note is
     }else{
       resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20)
     }
@@ -54,7 +53,11 @@ function App() {
     ctx.rect((ctx.canvas.width*0.8)-1, 0,1, ctx.canvas.height)
     ctx.fill()
 
-    // Moving note
+    // Moving note, might add loop here to add multipe notes or some function
+    ctx.fillStyle = '#336633'
+    ctx.beginPath()
+    ctx.arc(frameCount, ctx.canvas.height/2, ctx.canvas.height/2, 0, (ctx.canvas.height*Math.PI)/2);
+    ctx.fill()
   }
 
   // Slide Out Menus
@@ -108,6 +111,7 @@ function App() {
     }
   }
 
+
   useEffect(() => {
     // Keyboard events
     function handleKeyDown(e) {
@@ -148,7 +152,7 @@ function App() {
           <p>score</p>
         </div>
         */}
-        <Canvas id="Note-line" draw={drawNoteLine} options={'2d'}/>
+        <Canvas id="Note-line" draw={drawNoteLine} options={['2d',Number(1)]}/>
         
       </div>
       <div className="Menus-container">
