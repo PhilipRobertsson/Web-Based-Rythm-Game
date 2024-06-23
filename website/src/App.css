@@ -86,38 +86,6 @@
   color: rgb(22, 22, 22);
 }
 
-.Note-line{
-  height: 15px;
-  width: 80vw;
-  position: relative;
-  background-color: rgb(210, 46, 46);
-  display: flex;
-  align-items: center;
-  flex-direction: row-reverse;
-  filter: drop-shadow(0 0 0.1rem rgb(22, 22, 22));
-}
-
-.Judgement-zone{
-  position: fixed;
-  display: flex;
-  height: 15px;
-  width: 20vw;
-  background-color: rgb(205, 217, 35);
-  border-style: none none none solid;
-  border-color: rgb(22, 22, 22);
-}
-
-.Missed-box{
-  position: fixed;
-  display: flex;
-  height: 40px;
-  width: 40px;
-  background-color: rgb(109, 109, 109);
-  border-style: none none none solid;
-  border-color: rgb(22, 22, 22);
-  border-radius: 10px 0 0 10px;
-}
-
 .Menus-container{
   position: fixed;
   top:0;

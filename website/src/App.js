@@ -14,11 +14,38 @@ function App() {
   const [videoUrl, setVideoUrl] = useState("");
   const [videoCode, setVideoCode] = useState("");
 
-  const draw = (ctx, frameCount) => {
+  // Rezise a canvas element to desired size, uses the ctx.canvas element from the draw function
+  const resizeCanvasToDisplaySize = (canvas, width, height) =>{
+
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width
+      canvas.height = height
+      return true //Return nothing
+    }
+    return false //There's nothing to change
+  }
+
+  // Code to draw the note line as a canvas
+  const drawNoteLine = (ctx, frameCount) => {
+    resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20)
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-    ctx.fillStyle = '#000000'
+
+    //Red part
+    ctx.fillStyle = '#cc3333'
     ctx.beginPath()
-    ctx.arc(50, 100, 20*Math.sin(frameCount*0.05)**2, 0, 2*Math.PI)
+    ctx.rect(0, 0, ctx.canvas.width*0.8, ctx.canvas.height)
+    ctx.fill()
+
+    // Yellow part
+    ctx.fillStyle = '#cccc33'
+    ctx.beginPath()
+    ctx.rect(ctx.canvas.width*0.8, 0, ctx.canvas.width, ctx.canvas.height)
+    ctx.fill()
+
+    // Dividing line
+    ctx.fillStyle = '#161616'
+    ctx.beginPath()
+    ctx.rect((ctx.canvas.width*0.8)-1, 0,1, ctx.canvas.height)
     ctx.fill()
   }
 
@@ -107,21 +134,13 @@ function App() {
         {/*
         <YouTube className='YT-iFrame'  opts={opts} videoId={videoCode}></YouTube>
         */}
-        <Canvas draw={draw} options={'2d'}/>
 
         <div className="Score-Window">
           <p>score</p>
         </div>
 
-        <div className="Note-line">
-            <div className="Judgement-zone">
-
-            </div>
-            {/*<div className="Missed-box">
-
-            </div>*/}
-
-        </div>
+        <Canvas draw={drawNoteLine} options={'2d'}/>
+        
       </div>
       <div className="Menus-container">
         <div id="Menu-window">
