@@ -9,6 +9,7 @@ import Canvas from './Canvas'
 
 function App() {
 
+  // States
   const [menuOut, setMenuOut] = useState(false)
   const [infoOut, setInfoOut] = useState(false)
   const [videoUrl, setVideoUrl] = useState("")
@@ -18,6 +19,7 @@ function App() {
   const [points, setPoints] = useState(0)
 
   // Rezise a canvas element to desired size, uses the ctx.canvas element from the draw function
+  // This is responsive at the moment
   const resizeCanvasToDisplaySize = (canvas, width, height) =>{
 
     if (canvas.width !== width || canvas.height !== height) {
@@ -28,16 +30,16 @@ function App() {
     return false //There's nothing to change
   }
 
-  // Code to draw the note line as a canvas
+  // Code to draw the note line as a canvas, is used in Canvas.js
   const drawNoteLine = (ctx, frameCount) => {
     if(spaceDown){
-      resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20+10)
+      resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20+10) // Slightly increase height of the note line when space is pressed
       if(frameCount >= ctx.canvas.width*0.8 && frameCount <= ctx.canvas.width && !scored){
         setScored(true)
         setPoints(points+1)
       }
     }else{
-      resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20)
+      resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20) // Space is not pressed keep the origninal height
     }
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
 
@@ -60,15 +62,15 @@ function App() {
     ctx.fill()
 
     // Moving note, might add loop here to add multipe notes or some function
-    if(!scored){
-    ctx.fillStyle = '#336633'
-    ctx.beginPath()
-    if(spaceDown){
-      ctx.arc(frameCount, ctx.canvas.height/2, (ctx.canvas.height/2)-5, 0, (ctx.canvas.height*Math.PI)/2);
-    }else{
-      ctx.arc(frameCount, ctx.canvas.height/2, ctx.canvas.height/2, 0, (ctx.canvas.height*Math.PI)/2);
-    }
-    ctx.fill()
+    if(!scored){ //Player has not scored, note can be drawn, this will be changed to account for more notes
+      ctx.fillStyle = '#336633'
+      ctx.beginPath()
+      if(spaceDown){
+        ctx.arc(frameCount, ctx.canvas.height/2, (ctx.canvas.height/2)-5, 0, (ctx.canvas.height*Math.PI)/2);
+      }else{
+        ctx.arc(frameCount, ctx.canvas.height/2, ctx.canvas.height/2, 0, (ctx.canvas.height*Math.PI)/2);
+      }
+      ctx.fill()
     }
     if(frameCount == ctx.canvas.width){
       setScored(false);
@@ -77,7 +79,9 @@ function App() {
 
   // Slide Out Menus
   const slideOutMenu = (option) => {
-    if(document.getElementById("Menu-window")){
+    if(document.getElementById("Menu-window")){ // Check if element exists
+      
+      // Left hand side menu
       if(option == "menu"){
         if(menuOut == false){
           setMenuOut(true);
@@ -93,6 +97,8 @@ function App() {
           }, 190);
         }
       }
+
+      // Right hand side menu
       if(option == "info"){
         if(infoOut == false){
           setInfoOut(true);
@@ -111,7 +117,7 @@ function App() {
     }
   }
 
-  //Load video
+  //Load video, not used at the moment
   const loadVideo = () =>{
     if(document.getElementById("YTurl")){
 
@@ -130,49 +136,53 @@ function App() {
   useEffect(() => {
     // Keyboard events
     function handleKeyDown(e) {
-      if(e.code == "Space"){
+      if(e.code == "Space"){ //Space pressed, bools used in drawNoteLine()
         setSpaceDown(true);
         setTimeout(function() {
           setSpaceDown(false);
         }, 50);
       } 
-      if(e.code == "Escape"){
+      if(e.code == "Escape"){ // Esc pressed, opens or closes the left hand side menu
         slideOutMenu("menu");
       }
-      if(e.code =="KeyI"){
+      if(e.code =="KeyI"){ // I pressed, opens or closes the right hand side menu
         slideOutMenu("info");
       }
     }
     document.addEventListener('keydown', handleKeyDown);
+
+    //Remove event listener after use
     return function cleanup() {
       document.removeEventListener('keydown', handleKeyDown);
     }
-  }, [menuOut, infoOut, videoCode]);
+  }, [menuOut, infoOut/*, videoCode*/]);
 
   // App content
   return (
     <div className="App">
+
+      {/*Navigation bar*/}
       <header className="App-header">
         <img id="Menu-button" src="hamburger-menu.svg" onClick={()=>slideOutMenu("menu")}></img>
         <h2>WEB BASED RYTHM GAME</h2>
         <img id="Info-button" src="info.svg" onClick={()=>slideOutMenu("info")}></img>
       </header> 
 
+      {/*Game field*/}
       <div className="App-content">
 
-        {/*
+        {/* Might use this to avoid breaking the YouTube TOS
         <YouTube className='YT-iFrame'  opts={opts} videoId={videoCode}></YouTube>
-
-        <div className="Score-Window">
-          <p>score</p>
-        </div>
         */}
+
         <Canvas id="Note-line" draw={drawNoteLine} options={['2d',Number(1)]}/>
         <p>Score: {points}</p>
         
       </div>
+
+      {/*Container holding the slide out menus*/}
       <div className="Menus-container">
-        <div id="Menu-window">
+        <div id="Menu-window"> {/*The left hand side menu*/}
             <img className="Close-button" src="close.svg" onClick={()=>slideOutMenu("menu")}></img>
             <h3 style={{paddingLeft:"2em"}}>Menu</h3>
             <div style={{width:"100vw", height:"100vw"}}>
@@ -193,7 +203,7 @@ function App() {
             </div>
         </div>
 
-        <div id="Instruction-window">
+        <div id="Instruction-window"> {/*The right hand side menu*/}
             <h3 style={{paddingRight:"2em"}}>Info</h3>
             <img className="Close-button" src="close.svg" onClick={()=>slideOutMenu("info")}></img>
             <div style={{width:"100vw", height:"100vw"}}>
