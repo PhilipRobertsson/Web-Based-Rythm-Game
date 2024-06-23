@@ -124,11 +124,13 @@
   display: flex;
   width: 100vw;
   font-family: "Silkscreen", sans-serif;
+  pointer-events: none
 }
 
 #Menu-window{
   display: none;
   justify-content: flex-start;
+  pointer-events: auto;
   flex-direction: row;
   flex-wrap: wrap;
   align-self: flex-start;
@@ -146,6 +148,7 @@
 #Instruction-window{
   display: none;
   justify-content: flex-end;
+  pointer-events: auto;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;

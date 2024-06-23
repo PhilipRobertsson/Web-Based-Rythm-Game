@@ -98,7 +98,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/*TODO: Fix bug where both menus cant be opened simultaniously from the navbar icons*/}
         <img id="Menu-button" src="hamburger-menu.svg" onClick={()=>slideOutMenu("menu")}></img>
         <h2>WEB BASED RYTHM GAME</h2>
         <img id="Info-button" src="info.svg" onClick={()=>slideOutMenu("info")}></img>
