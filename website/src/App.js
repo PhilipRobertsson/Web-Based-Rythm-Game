@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import React from 'react';
 import YouTube from 'react-youtube';
+import Canvas from './Canvas'
 
 function App() {
 
@@ -12,16 +13,14 @@ function App() {
   const [infoOut, setInfoOut] = useState(false)
   const [videoUrl, setVideoUrl] = useState("");
   const [videoCode, setVideoCode] = useState("");
-  
-  const opts = {
-    height: '578',
-    width: '1028',
-    playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 1,
-    },
-  };
 
+  const draw = (ctx, frameCount) => {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+    ctx.fillStyle = '#000000'
+    ctx.beginPath()
+    ctx.arc(50, 100, 20*Math.sin(frameCount*0.05)**2, 0, 2*Math.PI)
+    ctx.fill()
+  }
 
   // Slide Out Menus
   const slideOutMenu = (option) => {
@@ -105,7 +104,10 @@ function App() {
 
       <div className="App-content">
 
-      <YouTube className='YT-iFrame'  opts={opts} videoId={videoCode}></YouTube>
+        {/*
+        <YouTube className='YT-iFrame'  opts={opts} videoId={videoCode}></YouTube>
+        */}
+        <Canvas draw={draw} options={'2d'}/>
 
         <div className="Score-Window">
           <p>score</p>
