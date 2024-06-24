@@ -79,10 +79,9 @@ function App() {
         ctx.fillStyle = '#336633'
         ctx.beginPath()
         if(spaceDown){
-          ctx.arc(Number(frameCount-track[i].Offset), ctx.canvas.height/2, (ctx.canvas.height/2)-5, 0, (ctx.canvas.height*Math.PI)/2);
+          ctx.arc(Number(frameCount-track[i].Offset*i), ctx.canvas.height/2, (ctx.canvas.height/2)-5, 0, (ctx.canvas.height*Math.PI)/2);
         }else{
-          ctx.arc(Number(frameCount-track[i].Offset), ctx.canvas.height/2, ctx.canvas.height/2, 0, (ctx.canvas.height*Math.PI)/2);
-          console.log("Drew note " + Number(i) + " at position: " + Number(frameCount-track[i].Offset))
+          ctx.arc(Number(frameCount-track[i].Offset*i), ctx.canvas.height/2, ctx.canvas.height/2, 0, (ctx.canvas.height*Math.PI)/2);
         }
       }
       ctx.fill()
