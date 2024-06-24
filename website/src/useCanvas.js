@@ -10,10 +10,11 @@ const useCanvas = (draw,options={}) =>{
         let animationFrameId
 
         const render = () =>{
-            if((framecount*options.speed) < canvas.width){
-                setFrameCount(framecount++)
-            }else{
+            if((framecount*options.speed) >= canvas.width){
+                // This does not happen when needed, last frame of the note animation is always at canvas.width
                 setFrameCount(0)
+            }else{
+                setFrameCount(framecount++)
             }
             draw(context, framecount*options.speed)
             animationFrameId = window.requestAnimationFrame(render)

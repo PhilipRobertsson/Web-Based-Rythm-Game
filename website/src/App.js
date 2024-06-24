@@ -18,6 +18,9 @@ function App() {
   const [scored, setScored] = useState(false)
   const [points, setPoints] = useState(0)
 
+  // Variables
+  const speed = 5.0
+
   // Rezise a canvas element to desired size, uses the ctx.canvas element from the draw function
   // This is responsive at the moment
   const resizeCanvasToDisplaySize = (canvas, width, height) =>{
@@ -175,7 +178,7 @@ function App() {
         <YouTube className='YT-iFrame'  opts={opts} videoId={videoCode}></YouTube>
         */}
 
-        <Canvas id="Note-line" draw={drawNoteLine} options={['2d',5]}/>
+        <Canvas id="Note-line" draw={drawNoteLine} options={['2d',speed]}/>
         <p>Score: {points}</p>
         
       </div>
