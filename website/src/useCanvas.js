@@ -10,12 +10,12 @@ const useCanvas = (draw,options={}) =>{
         let animationFrameId
 
         const render = () =>{
-            if(framecount < canvas.width){
+            if((framecount*options.speed) < canvas.width){
                 setFrameCount(framecount++)
             }else{
                 setFrameCount(0)
             }
-            draw(context, framecount)
+            draw(context, framecount*options.speed)
             animationFrameId = window.requestAnimationFrame(render)
         }
 

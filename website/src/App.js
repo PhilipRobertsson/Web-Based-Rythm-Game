@@ -175,7 +175,7 @@ function App() {
         <YouTube className='YT-iFrame'  opts={opts} videoId={videoCode}></YouTube>
         */}
 
-        <Canvas id="Note-line" draw={drawNoteLine} options={['2d',Number(1)]}/>
+        <Canvas id="Note-line" draw={drawNoteLine} options={['2d',5]}/>
         <p>Score: {points}</p>
         
       </div>
