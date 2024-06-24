@@ -20,6 +20,7 @@ function App() {
 
   // Variables
   const speed = 5.0
+  let nextId = 0;
 
   // Struct for note
   var Note = {
@@ -77,7 +78,6 @@ function App() {
         if(spaceDown){
           ctx.arc(Number(frameCount-track[i].offset*i), ctx.canvas.height/2, (ctx.canvas.height/2)-5, 0, (ctx.canvas.height*Math.PI)/2);
           if(Number(frameCount-track[i].offset*i) > ctx.canvas.width*0.8){
-            track[i].scored = true;
           }
         }else{
           ctx.arc(Number(frameCount-track[i].offset*i), ctx.canvas.height/2, ctx.canvas.height/2, 0, (ctx.canvas.height*Math.PI)/2);
