@@ -20,6 +20,14 @@ function App() {
 
   // Variables
   const speed = 5.0
+  const track =  []
+
+  // Note struct
+  var Note = {
+    'Scored': false, // If the note has been hit, used to decide if the note should be rendered
+    'Offset': 0,      //  Distance to previous note, used toghether with framecount in drawNoteLine()
+  }
+
 
   // Rezise a canvas element to desired size, uses the ctx.canvas element from the draw function
   // This is responsive at the moment
@@ -64,19 +72,20 @@ function App() {
     ctx.rect((ctx.canvas.width*0.8)-1, 0,1, ctx.canvas.height)
     ctx.fill()
 
+
     // Moving note, might add loop here to add multipe notes or some function
-    if(!scored){ //Player has not scored, note can be drawn, this will be changed to account for more notes
-      ctx.fillStyle = '#336633'
-      ctx.beginPath()
-      if(spaceDown){
-        ctx.arc(frameCount, ctx.canvas.height/2, (ctx.canvas.height/2)-5, 0, (ctx.canvas.height*Math.PI)/2);
-      }else{
-        ctx.arc(frameCount, ctx.canvas.height/2, ctx.canvas.height/2, 0, (ctx.canvas.height*Math.PI)/2);
+    for(let i = 0; i<track.length; i++){
+      if(!track[i].scored){
+        ctx.fillStyle = '#336633'
+        ctx.beginPath()
+        if(spaceDown){
+          ctx.arc(Number(frameCount-track[i].Offset), ctx.canvas.height/2, (ctx.canvas.height/2)-5, 0, (ctx.canvas.height*Math.PI)/2);
+        }else{
+          ctx.arc(Number(frameCount-track[i].Offset), ctx.canvas.height/2, ctx.canvas.height/2, 0, (ctx.canvas.height*Math.PI)/2);
+          console.log("Drew note " + Number(i) + " at position: " + Number(frameCount-track[i].Offset))
+        }
       }
       ctx.fill()
-    }
-    if(frameCount == ctx.canvas.width){
-      setScored(false);
     }
   }
 
@@ -135,6 +144,20 @@ function App() {
     }
   }
 
+  //Create track, with an amount of notes corresponding to numNotes
+  const createTrack = (numNotes) =>{
+    for(let i=0; i<numNotes; i++){
+      Note.scored = false;
+      if(i == 0){ //First note, should not have a offset
+        Note.Offset = Number(0);
+      }else{
+        Note.Offset = (track[i-1].Offset)+10
+      }
+      track.push(Note);
+      console.log("Note " + Number(i) + " offset: " + Number(track[i].Offset))
+    }
+  }
+
 
   useEffect(() => {
     // Keyboard events
@@ -150,6 +173,9 @@ function App() {
       }
       if(e.code =="KeyI"){ // I pressed, opens or closes the right hand side menu
         slideOutMenu("info");
+      }
+      if(e.code == "KeyC"){
+        createTrack(10);
       }
     }
     document.addEventListener('keydown', handleKeyDown);
