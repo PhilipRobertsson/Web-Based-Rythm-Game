@@ -8,25 +8,25 @@ import YouTube from 'react-youtube';
 import Canvas from './Canvas'
 
 function App() {
-
   // States
   const [menuOut, setMenuOut] = useState(false)
   const [infoOut, setInfoOut] = useState(false)
   const [videoUrl, setVideoUrl] = useState("")
   const [videoCode, setVideoCode] = useState("")
   const [spaceDown, setSpaceDown] = useState(false)
-  const [scored, setScored] = useState(false)
   const [points, setPoints] = useState(0)
+  let [offset, setOffset] = useState(0)
+  let [track, setTrack] = useState([])
 
   // Variables
   const speed = 5.0
-  const track =  []
 
-  // Note struct
+  // Struct for note
   var Note = {
-    'Scored': false, // If the note has been hit, used to decide if the note should be rendered
-    'Offset': 0,      //  Distance to previous note, used toghether with framecount in drawNoteLine()
+    'scored': false, // If the note has been hit, used to decide if the note should be rendered
+    'offset': 0,      //  Distance to previous note, used toghether with framecount in drawNoteLine()
   }
+  
 
 
   // Rezise a canvas element to desired size, uses the ctx.canvas element from the draw function
@@ -45,10 +45,6 @@ function App() {
   const drawNoteLine = (ctx, frameCount) => {
     if(spaceDown){
       resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20+10) // Slightly increase height of the note line when space is pressed
-      if(frameCount >= ctx.canvas.width*0.8 && frameCount <= ctx.canvas.width && !scored){
-        setScored(true)
-        setPoints(points+1)
-      }
     }else{
       resizeCanvasToDisplaySize(ctx.canvas, window.screen.width*0.8, 20) // Space is not pressed keep the origninal height
     }
@@ -79,12 +75,15 @@ function App() {
         ctx.fillStyle = '#336633'
         ctx.beginPath()
         if(spaceDown){
-          ctx.arc(Number(frameCount-track[i].Offset*i), ctx.canvas.height/2, (ctx.canvas.height/2)-5, 0, (ctx.canvas.height*Math.PI)/2);
+          ctx.arc(Number(frameCount-track[i].offset*i), ctx.canvas.height/2, (ctx.canvas.height/2)-5, 0, (ctx.canvas.height*Math.PI)/2);
+          if(Number(frameCount-track[i].offset*i) > ctx.canvas.width*0.8){
+            track[i].scored = true;
+          }
         }else{
-          ctx.arc(Number(frameCount-track[i].Offset*i), ctx.canvas.height/2, ctx.canvas.height/2, 0, (ctx.canvas.height*Math.PI)/2);
+          ctx.arc(Number(frameCount-track[i].offset*i), ctx.canvas.height/2, ctx.canvas.height/2, 0, (ctx.canvas.height*Math.PI)/2);
         }
+        ctx.fill()
       }
-      ctx.fill()
     }
   }
 
@@ -147,13 +146,8 @@ function App() {
   const createTrack = (numNotes) =>{
     for(let i=0; i<numNotes; i++){
       Note.scored = false;
-      if(i == 0){ //First note, should not have a offset
-        Note.Offset = Number(0);
-      }else{
-        Note.Offset = (track[i-1].Offset)+10
-      }
-      track.push(Note);
-      console.log("Note " + Number(i) + " offset: " + Number(track[i].Offset))
+      Note.offset = Note.offset+2*i
+      setTrack(track=> [...track, Note])
     }
   }
 
@@ -165,7 +159,7 @@ function App() {
         setSpaceDown(true);
         setTimeout(function() {
           setSpaceDown(false);
-        }, 50);
+        }, 0);
       } 
       if(e.code == "Escape"){ // Esc pressed, opens or closes the left hand side menu
         slideOutMenu("menu");
@@ -183,7 +177,7 @@ function App() {
     return function cleanup() {
       document.removeEventListener('keydown', handleKeyDown);
     }
-  }, [menuOut, infoOut/*, videoCode*/]);
+  }, [menuOut, infoOut, track, spaceDown/*, videoCode*/]);
 
   // App content
   return (
